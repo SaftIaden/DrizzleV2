@@ -13,6 +13,8 @@ module.exports = {
   rules: {
     'linebreak-style': ['error', 'windows'],
     'import/extensions': ['error', { ts: 'never' }],
+    'max-len': ['error', 500],
+    'no-restricted-syntax': 'off',
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
     'no-console': 'off',
