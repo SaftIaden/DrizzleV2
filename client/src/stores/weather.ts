@@ -1,0 +1,17 @@
+import axios from 'axios';
+import { defineStore } from 'pinia';
+import type { currentWeather } from '../types';
+
+const useWeatherStore = defineStore('weatherStore', {
+  state: () => ({
+    currentWeatherData: null as currentWeather | null,
+  }),
+  actions: {
+    async getCurrentWeatherData(lat: number, long: number) {
+      const { data }: { data: currentWeather } = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}`);
+      this.currentWeatherData = data;
+    },
+  },
+});
+
+export default useWeatherStore;
