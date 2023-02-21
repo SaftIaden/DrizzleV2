@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="locationDisplay row q-mt-lg q-mx-lg q-pl-sm">
-      <span v-if="!weatherStore.pending" class="col font-kanit-medium text-subtitle1"> {{ weatherStore.currentWeatherData?.name }}</span>
+      <span v-if="!weatherStore.pending" class="col font-kanit-medium text-subtitle1"> {{ weatherStore.currentWeatherData?.name }}, {{ weatherStore.currentWeatherData?.sys.country }}</span>
       <q-skeleton v-else type="text" width="40%" />
 
       <div class="col q-mt-xs text-right">
