@@ -19,7 +19,7 @@ onMounted(async () => {
     const pos = await getLocation({ enableHighAccuracy: true });
     weatherStore.getCurrentWeatherData(pos.coords.latitude, pos.coords.longitude);
   } catch (error) {
-    weatherStore.getCurrentWeatherData(40.73061, -73.935242);
+    weatherStore.getCurrentWeatherData();
   }
 });
 </script>
