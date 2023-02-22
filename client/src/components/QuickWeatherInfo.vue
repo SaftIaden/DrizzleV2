@@ -81,7 +81,7 @@
               <div class="col text-right">
                 <q-icon name="fa-solid fa-water" class="q-mr-md" />
               </div>
-              <div class="col-8 text-center">
+              <div class="col-9 text-center">
                 <span class="font-inter-medium text-body2">{{ weatherStore.currentWeatherData?.main.humidity }}</span>
                 <span class="font-kanit-light text-smaller">%</span>
               </div>
@@ -91,10 +91,10 @@
               <div class="col text-right">
                 <q-icon name="fa-solid fa-wind" class="q-mr-md" />
               </div>
-              <div class="col-8 text-center">
+              <div class="col-9 text-center">
                 <span class="font-inter-medium text-body2">{{ weatherStore.currentWeatherData?.wind.speed }}</span>
                 <span class="font-kanit-light text-smaller">kph</span>
-                <span class="font-inter-medium text-body2"> @ {{ weatherStore.currentWeatherData?.wind.deg }}°</span>
+                <span class="font-inter-medium text-body2"> / {{ weatherStore.currentWeatherData?.wind.deg }}°</span>
               </div>
             </div>
           </div>
@@ -114,6 +114,7 @@ const weatherStore = useWeatherStore();
 <style scoped lang="scss">
 .container {
   border-radius: 15px;
+  border: 1.5px solid $accent;
 
   background-color: $primary;
   color: $accent;
