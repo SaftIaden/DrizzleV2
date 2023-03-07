@@ -79,8 +79,11 @@ type forecastListItem = {
   };
   visibility: number;
   pop: number;
-  rain: {
-    '1h': number;
+  rain?: {
+    '3h': number;
+  };
+  snow?: {
+    '3h': number;
   };
   sys: {
     pod: string;
