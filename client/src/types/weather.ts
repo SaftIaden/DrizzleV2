@@ -111,4 +111,12 @@ type forecast = {
   };
 };
 
-export type { currentWeather, forecast, forecastListItem };
+type dailyForecastCalculations = {
+  minTemp: number;
+  maxTemp: number;
+  weatherIcon: string;
+  weatherText: string;
+  avgRain?: number;
+};
+
+export type { currentWeather, forecast, forecastListItem, dailyForecastCalculations };
