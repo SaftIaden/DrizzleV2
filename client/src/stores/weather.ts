@@ -21,19 +21,6 @@ const useWeatherStore = defineStore('weatherStore', {
       this.pendingCurrent = false;
     },
 
-    async getCurrentWeatherDataByLocation(locationStr: string) {
-      this.pendingCurrent = true;
-
-      const res = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${locationStr}&limit=5&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}`);
-      const { lat, lon: long } = res.data[0];
-
-      const { data }: { data: currentWeather } = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}&units=metric`);
-
-      data.dt *= 1000;
-      this.currentWeatherData = data;
-      this.pendingCurrent = false;
-    },
-
     async getForecast(lat: number = 40.73061, long: number = -73.935242) {
       this.pendingForecast = true;
 
@@ -44,6 +31,16 @@ const useWeatherStore = defineStore('weatherStore', {
       }
       this.forecastData = data;
       this.pendingForecast = false;
+    },
+
+    async getWeatherForLocation(locationStr: string) {
+      this.pendingCurrent = true;
+
+      const res = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${locationStr}&limit=5&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}`);
+      const { lat, lon: long } = res.data[0];
+
+      this.getCurrentWeatherData(lat, long);
+      this.getForecast(lat, long);
     },
   },
 });

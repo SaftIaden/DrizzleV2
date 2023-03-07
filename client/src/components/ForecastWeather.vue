@@ -12,8 +12,8 @@
           <q-img class="forecast-icon" :no-spinner="true" :src="`http://openweathermap.org/img/wn/${dailyForecastProps[i].weatherIcon}@2x.png`" width="1.5rem"></q-img>
         </div>
 
-        <span v-if="dailyForecastProps[i].avgRain" class="col-5 text-body1 font-kanit-light" style="height: fit-content">{{ dailyForecastProps[i].avgRain }} <span class="text-smaller font-inter-medium">mm/m²</span></span>
-        <span v-else class="col-5 text-body1 font-kanit-light" style="height: fit-content">{{ dailyForecastProps[i].weatherText }}</span>
+        <span v-if="dailyForecastProps[i].avgRain" class="col-5 text-body1 font-kanit-light">{{ dailyForecastProps[i].avgRain }} <span class="text-smaller font-inter-medium">mm</span></span>
+        <span v-else class="col-5 text-body1 font-kanit-light">{{ dailyForecastProps[i].weatherText }}</span>
       </div>
     </div>
 
@@ -72,6 +72,7 @@ function getDailyData(firstHourItem: forecastListItem): dailyForecastCalculation
 weatherStore.$subscribe((mutation, { pendingForecast, forecastData }) => {
   if (!pendingForecast && forecastData) {
     firstForecastOfEachDay.value = weatherStore.forecastData?.list.filter((li) => new Date(li.dt).getHours() === 1);
+    dailyForecastProps.value = [];
     firstForecastOfEachDay.value?.forEach((val) => dailyForecastProps.value.push(getDailyData(val)));
   }
 });

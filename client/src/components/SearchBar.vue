@@ -19,7 +19,7 @@ const weatherStore = useWeatherStore();
 const searchString: Ref<string> = ref('');
 
 async function searchLocation() {
-  weatherStore.getCurrentWeatherDataByLocation(searchString.value);
+  weatherStore.getWeatherForLocation(searchString.value);
 }
 </script>
 
