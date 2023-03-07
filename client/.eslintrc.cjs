@@ -14,6 +14,7 @@ module.exports = {
     'linebreak-style': ['error', 'windows'],
     'import/extensions': ['error', { ts: 'never' }],
     'max-len': ['error', 500],
+    'object-curly-newline': 'off',
     'no-return-assign': 'off',
     'no-restricted-syntax': 'off',
     'import/no-unresolved': 'off',
