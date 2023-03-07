@@ -16,10 +16,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { RouterView } from 'vue-router';
-import { useWeatherStore } from './stores';
+import { useWeatherStore, useUserStore } from './stores';
 import { getLocation } from './composables';
 
 const weatherStore = useWeatherStore();
+const userStore = useUserStore();
 
 const update = ref(false);
 
@@ -41,6 +42,7 @@ async function reloadSW() {
 
 onMounted(async () => {
   registerSW();
+  userStore.savePrefsOnUpdate();
 
   try {
     const pos = await getLocation({ enableHighAccuracy: true });

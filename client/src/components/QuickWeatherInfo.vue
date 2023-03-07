@@ -1,13 +1,11 @@
 <template>
   <div>
     <div class="locationDisplay row q-mt-lg q-mx-lg q-pl-sm">
-      <span v-if="!weatherStore.pendingCurrent" class="col-10 font-kanit-medium text-subtitle1"> {{ weatherStore.currentWeatherData?.name }}, {{ weatherStore.currentWeatherData?.sys.country }}</span>
+      <span v-if="!weatherStore.pendingCurrent" class="col-9 font-kanit-medium text-subtitle1"> {{ weatherStore.currentWeatherData?.name }}, {{ weatherStore.currentWeatherData?.sys.country }}</span>
       <q-skeleton v-else type="text" width="40%" />
 
-      <div class="col-2 q-mt-xs text-right">
-        <q-icon name="fa-solid fa-chevron-left" />
-        <q-icon name="fa-regular fa-star" />
-        <q-icon name="fa-solid fa-chevron-right" />
+      <div class="col-3 q-mt-xs text-right">
+        <StarLocation></StarLocation>
       </div>
     </div>
 
@@ -107,6 +105,7 @@
 <script setup lang="ts">
 import { format } from 'date-fns';
 import { useWeatherStore } from '../stores';
+import StarLocation from './StarLocation.vue';
 
 const weatherStore = useWeatherStore();
 </script>
