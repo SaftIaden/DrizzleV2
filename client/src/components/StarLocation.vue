@@ -24,7 +24,12 @@ function starLocation(): void {
   else starred.value = false;
 }
 
-function unstarLocation(): void {}
+function unstarLocation(): void {
+  const index: number = userStore.preferences.starredLocations.findIndex(({ lat, long }) => lat === weatherStore.currentWeatherData?.coord.lat && long === weatherStore.currentWeatherData.coord.lon);
+  userStore.preferences.starredLocations.splice(index, 1);
+
+  starred.value = false;
+}
 
 function toFirstStar() {
   if (userStore.preferences.starredLocations.length === 0) return;
