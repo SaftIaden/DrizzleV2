@@ -1,11 +1,11 @@
 <template>
   <div>
-    <q-btn flat round color="accent" icon="fa-solid fa-chevron-left" size=".5rem" />
+    <q-btn @click="toLastStar" flat round color="accent" icon="fa-solid fa-chevron-left" size=".5rem" />
 
     <q-btn v-if="!starred" @click="starLocation" flat round color="accent" icon="fa-regular fa-star" size=".5rem" />
     <q-btn v-else @click="unstarLocation" flat round color="accent" icon="fa-solid fa-star" size=".5rem" />
 
-    <q-btn flat round color="accent" icon="fa-solid fa-chevron-right" size=".5rem" />
+    <q-btn @click="toNextStar" flat round color="accent" icon="fa-solid fa-chevron-right" size=".5rem" />
   </div>
 </template>
 
@@ -25,6 +25,39 @@ function starLocation(): void {
 }
 
 function unstarLocation(): void {}
+
+function toFirstStar() {
+  if (userStore.preferences.starredLocations.length === 0) return;
+
+  const { lat, long } = userStore.preferences.starredLocations[0];
+  weatherStore.getWeatherForLocationByCoords(lat, long);
+}
+
+function toLastStar() {
+  const index: number = userStore.preferences.starredLocations.findIndex(({ lat, long }) => lat === weatherStore.currentWeatherData?.coord.lat && long === weatherStore.currentWeatherData.coord.lon);
+
+  if (index === 0) return;
+  if (index === -1) {
+    toFirstStar();
+    return;
+  }
+
+  const { lat, long } = userStore.preferences.starredLocations[index - 1];
+  weatherStore.getWeatherForLocationByCoords(lat, long);
+}
+
+function toNextStar() {
+  const index: number = userStore.preferences.starredLocations.findIndex(({ lat, long }) => lat === weatherStore.currentWeatherData?.coord.lat && long === weatherStore.currentWeatherData.coord.lon);
+
+  if (index === userStore.preferences.starredLocations.length - 1) return;
+  if (index === -1) {
+    toFirstStar();
+    return;
+  }
+
+  const { lat, long } = userStore.preferences.starredLocations[index + 1];
+  weatherStore.getWeatherForLocationByCoords(lat, long);
+}
 
 weatherStore.$subscribe((mutation, { pendingCurrent, pendingForecast, currentWeatherData }) => {
   if (!pendingCurrent && !pendingForecast) {

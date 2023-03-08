@@ -35,9 +35,18 @@ const useWeatherStore = defineStore('weatherStore', {
 
     async getWeatherForLocation(locationStr: string) {
       this.pendingCurrent = true;
+      this.pendingForecast = true;
 
       const res = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${locationStr}&limit=5&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}`);
       const { lat, lon: long } = res.data[0];
+
+      this.getCurrentWeatherData(lat, long);
+      this.getForecast(lat, long);
+    },
+
+    async getWeatherForLocationByCoords(lat: number, long: number) {
+      this.pendingCurrent = true;
+      this.pendingForecast = true;
 
       this.getCurrentWeatherData(lat, long);
       this.getForecast(lat, long);
