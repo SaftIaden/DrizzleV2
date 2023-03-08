@@ -42,6 +42,10 @@ async function reloadSW() {
 
 onMounted(async () => {
   registerSW();
+
+  const savedPrefs = await userStore.getPreferences();
+  if (savedPrefs) userStore.preferences = savedPrefs;
+
   userStore.savePrefsOnUpdate();
 
   try {

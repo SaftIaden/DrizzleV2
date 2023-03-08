@@ -13,7 +13,7 @@ const useUserStore = defineStore('useUserStore', {
 
   actions: {
     async getPreferences(): Promise<preference | undefined> {
-      const prefs = (await db.get('preferences', 'userPreferences')) as preference;
+      const prefs = (await db.get('preferences', 1)) as preference;
       return prefs ?? undefined;
     },
 
@@ -26,9 +26,9 @@ const useUserStore = defineStore('useUserStore', {
 
       if (!oldPrefs) updatedPrefs = this.preferences;
       else updatedPrefs = { ...oldPrefs, ...this.preferences };
+      updatedPrefs.starredLocations = toRaw(updatedPrefs.starredLocations);
 
-      // await db.put('preferences', toRaw(updatedPrefs), 1);
-      console.log('ok');
+      await db.put('preferences', toRaw(updatedPrefs));
     },
 
     savePrefsOnUpdate(): void {

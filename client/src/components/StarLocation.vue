@@ -25,4 +25,11 @@ function starLocation(): void {
 }
 
 function unstarLocation(): void {}
+
+weatherStore.$subscribe((mutation, { pendingCurrent, pendingForecast, currentWeatherData }) => {
+  if (!pendingCurrent && !pendingForecast) {
+    if (userStore.preferences.starredLocations.find(({ lat, long }) => lat === currentWeatherData?.coord.lat && long === currentWeatherData.coord.lon)) starred.value = true;
+    else starred.value = false;
+  }
+});
 </script>
