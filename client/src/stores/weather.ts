@@ -38,7 +38,7 @@ const useWeatherStore = defineStore('weatherStore', {
     async getCurrentAirPollution(lat: number = 40.73061, long: number = -73.935242) {
       this.pendingAirPollution = true;
 
-      const { data }: { data: airPollution } = await axios.get(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${long}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}`);
+      const { data }: { data: airPollution } = await axios.get(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${long}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}`);
 
       for (const pollutionItem of data.list) {
         pollutionItem.dt *= 1000;
