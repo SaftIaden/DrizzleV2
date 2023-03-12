@@ -12,7 +12,7 @@ module.exports = {
   plugins: ['vue', '@typescript-eslint'],
   rules: {
     'linebreak-style': ['error', 'windows'],
-    'import/extensions': ['error', { ts: 'never' }],
+    'import/extensions': ['error', { ts: 'never', vue: 'always' }],
     'max-len': ['error', 500],
     'object-curly-newline': 'off',
     'no-return-assign': 'off',
