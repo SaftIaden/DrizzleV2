@@ -63,7 +63,7 @@ function getDailyData(firstHourItem: forecastListItem): dailyForecastCalculation
       }
     }
 
-    return { minTemp, maxTemp, avgRain: Math.round(rainSum / rainAddedCount), weatherIcon, weatherText };
+    return { minTemp, maxTemp, avgRain: Math.round((rainSum / rainAddedCount) * 100) / 100, weatherIcon, weatherText };
   }
 
   return { minTemp: 999, maxTemp: 999, weatherIcon: '04d', weatherText: 'no data' };

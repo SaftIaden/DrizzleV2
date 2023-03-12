@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- weather map badge -->
-    <ContextBadge title="Maps">
+    <ContextBadge title="Radar">
       <template #content>
         <MapBadge></MapBadge>
       </template>
