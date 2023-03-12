@@ -53,9 +53,11 @@ onMounted(async () => {
 
     weatherStore.getCurrentWeatherData(pos.coords.latitude, pos.coords.longitude);
     weatherStore.getForecast(pos.coords.latitude, pos.coords.longitude);
+    weatherStore.getCurrentAirPollution(pos.coords.latitude, pos.coords.longitude);
   } catch (error) {
     weatherStore.getCurrentWeatherData();
     weatherStore.getForecast();
+    weatherStore.getCurrentAirPollution();
   }
 });
 </script>
