@@ -1,9 +1,14 @@
 <template>
   <div>
     <!-- weather map badge -->
-    <ContextBadge>
+    <ContextBadge title="Maps">
       <template #content>
-        <div class="map-container q-pa-sm">
+        <div class="font-kanit">
+          <q-checkbox dark v-model="showLayersModel" val="temp" label="Temperatur" />
+          <q-checkbox dark v-model="showLayersModel" val="clouds" label="Clouds" />
+          <q-checkbox dark v-model="showLayersModel" val="precipitation" label="Precipitaion" />
+        </div>
+        <div class="map-container q-mt-sm">
           <div class="map" id="map"></div>
         </div>
       </template>
@@ -13,7 +18,7 @@
 
 <script setup lang="ts">
 import mapbox from 'mapbox-gl';
-import { ref, Ref, onMounted } from 'vue';
+import { ref, Ref, onMounted, watch } from 'vue';
 import getPosition from '@/composables/getLocation';
 import ContextBadge from './ContextBadge.vue';
 
@@ -42,6 +47,8 @@ const temperatureLayer: mapbox.AnyLayer = {
   maxzoom: 22,
 };
 
+const showLayersModel: Ref<string[]> = ref(['temp']);
+
 function onMapLoad() {
   map.value?.addSource('clouds', {
     type: 'raster',
@@ -69,7 +76,23 @@ function onMapLoad() {
       showUserHeading: true,
     }),
   );
+
+  map.value?.addLayer(temperatureLayer);
 }
+
+function updateVisibleLayers() {
+  if (map.value?.getLayer('clouds')) map.value.removeLayer('clouds');
+  if (map.value?.getLayer('precipitation')) map.value.removeLayer('precipitation');
+  if (map.value?.getLayer('temperature')) map.value.removeLayer('temperature');
+
+  if (showLayersModel.value.includes('temp')) map.value?.addLayer(temperatureLayer);
+  if (showLayersModel.value.includes('clouds')) map.value?.addLayer(cloudLayer);
+  if (showLayersModel.value.includes('precipitation')) map.value?.addLayer(precipitaionLayer);
+}
+
+watch(showLayersModel, () => {
+  updateVisibleLayers();
+});
 
 onMounted(async () => {
   const { coords } = await getPosition();
