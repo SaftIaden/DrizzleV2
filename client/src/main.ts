@@ -7,6 +7,8 @@ import quasarIconSet from 'quasar/icon-set/svg-fontawesome-v6';
 import '@quasar/extras/fontawesome-v6/fontawesome-v6.css';
 import 'quasar/src/css/index.sass';
 
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 import App from './App.vue';
 import router from './router/router';
 

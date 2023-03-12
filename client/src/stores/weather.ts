@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
-import type { currentWeather, forecast } from '../types';
+import type { currentWeather, forecast, airPollution } from '../types';
 
 const useWeatherStore = defineStore('weatherStore', {
   state: () => ({
     pendingCurrent: true,
     pendingForecast: true,
+    pendingAirPollution: true,
     currentWeatherData: null as currentWeather | null,
+    currentAirPollution: null as airPollution | null,
     forecastData: null as forecast | null,
   }),
 
@@ -33,23 +35,39 @@ const useWeatherStore = defineStore('weatherStore', {
       this.pendingForecast = false;
     },
 
+    async getCurrentAirPollution(lat: number = 40.73061, long: number = -73.935242) {
+      this.pendingAirPollution = true;
+
+      const { data }: { data: airPollution } = await axios.get(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${long}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}`);
+
+      for (const pollutionItem of data.list) {
+        pollutionItem.dt *= 1000;
+      }
+      this.currentAirPollution = data;
+      this.pendingAirPollution = false;
+    },
+
     async getWeatherForLocation(locationStr: string) {
       this.pendingCurrent = true;
       this.pendingForecast = true;
+      this.pendingAirPollution = true;
 
       const res = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${locationStr}&limit=5&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}`);
       const { lat, lon: long } = res.data[0];
 
       this.getCurrentWeatherData(lat, long);
       this.getForecast(lat, long);
+      this.getCurrentAirPollution(lat, long);
     },
 
     async getWeatherForLocationByCoords(lat: number, long: number) {
       this.pendingCurrent = true;
       this.pendingForecast = true;
+      this.pendingAirPollution = true;
 
       this.getCurrentWeatherData(lat, long);
       this.getForecast(lat, long);
+      this.getCurrentAirPollution(lat, long);
     },
   },
 });

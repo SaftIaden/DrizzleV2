@@ -1,3 +1,5 @@
+import { aqiCodes } from '.';
+
 type currentWeather = {
   coord: {
     lon: number;
@@ -111,6 +113,26 @@ type forecast = {
   };
 };
 
+type airPollution = {
+  coord: number[];
+  list: {
+    dt: number;
+    main: {
+      aqi: aqiCodes;
+    };
+    components: {
+      co: number;
+      no: number;
+      no2: number;
+      o3: number;
+      so2: number;
+      pm2_5: number;
+      pm10: number;
+      nh3: number;
+    };
+  }[];
+};
+
 type dailyForecastCalculations = {
   minTemp: number;
   maxTemp: number;
@@ -119,4 +141,4 @@ type dailyForecastCalculations = {
   avgRain?: number;
 };
 
-export type { currentWeather, forecast, forecastListItem, dailyForecastCalculations };
+export type { currentWeather, forecast, forecastListItem, dailyForecastCalculations, aqiCodes, airPollution };
