@@ -71,7 +71,7 @@
 
         <div class="col">
           <div class="row justify-end">
-            <q-img :no-spinner="true" :src="`http://openweathermap.org/img/wn/${weatherStore.currentWeatherData?.weather[0].icon}@2x.png`" width="5.5rem"></q-img>
+            <q-img :no-spinner="true" :src="`https://openweathermap.org/img/wn/${weatherStore.currentWeatherData?.weather[0].icon}@2x.png`" width="5.5rem"></q-img>
           </div>
 
           <div class="col">

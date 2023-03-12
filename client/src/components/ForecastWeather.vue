@@ -9,7 +9,7 @@
         </div>
 
         <div class="col-2">
-          <q-img class="forecast-icon" :no-spinner="true" :src="`http://openweathermap.org/img/wn/${dailyForecastProps[i].weatherIcon}@2x.png`" width="1.5rem"></q-img>
+          <q-img class="forecast-icon" :no-spinner="true" :src="`https://openweathermap.org/img/wn/${dailyForecastProps[i].weatherIcon}@2x.png`" width="1.5rem"></q-img>
         </div>
 
         <span v-if="dailyForecastProps[i].avgRain" class="col-5 text-body1 font-kanit-light">{{ dailyForecastProps[i].avgRain }} <span class="text-smaller font-inter-medium">mm</span></span>
