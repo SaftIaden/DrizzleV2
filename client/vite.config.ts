@@ -27,15 +27,42 @@ export default defineConfig({
       manifest,
       strategies: 'generateSW',
       workbox: {
-        mode: 'development',
         runtimeCaching: [
           {
-            urlPattern: /https:\/\/api.openweathermap.org\/data\/2.5\/(weather|forecast|air_pollution)\?lat=\d{2}\.\d*&lon=\d{2}\.\d*&appid=[a-zA-Z0-9]*(&units=metric)?/,
+            urlPattern: /https:\/\/api.openweathermap.org\/data\/2.5\/weather\?lat=\d{2}\.\d*&lon=\d{2}\.\d*&appid=[a-zA-Z0-9]*&units=metric/,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'weatherData',
+              cacheName: 'currentWeatherCache',
               expiration: {
-                maxEntries: 50,
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 1,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /https:\/\/api.openweathermap.org\/data\/2.5\/air_pollution\?lat=\d{2}\.\d*&lon=\d{2}\.\d*&appid=[a-zA-Z0-9]*/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'currentAirPollutionCache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 1,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /https:\/\/api.openweathermap.org\/data\/2.5\/forecast\?lat=\d{2}\.\d*&lon=\d{2}\.\d*&appid=[a-zA-Z0-9]*&units=metric/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'forecastCache',
+              expiration: {
+                maxEntries: 100,
                 maxAgeSeconds: 60 * 60 * 24 * 1,
               },
               cacheableResponse: {
