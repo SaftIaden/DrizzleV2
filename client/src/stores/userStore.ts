@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { toRaw } from 'vue';
+import { toRaw, watch } from 'vue';
 
 import openDatabase from '@/database';
 import { preference } from '../types';
@@ -9,6 +9,7 @@ const db = await openDatabase();
 const useUserStore = defineStore('useUserStore', {
   state: () => ({
     preferences: { id: 1, starredLocations: [] } as preference,
+    online: true,
   }),
 
   actions: {
@@ -34,9 +35,14 @@ const useUserStore = defineStore('useUserStore', {
     savePrefsOnUpdate(): void {
       this.savePreferences();
 
-      this.$subscribe(() => {
+      watch(this.preferences, () => {
         this.savePreferences();
       });
+    },
+
+    updateOnlineStatus(e: Event): void {
+      this.online = e.type === 'online';
+      console.log(this.online);
     },
   },
 });
