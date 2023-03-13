@@ -1,4 +1,6 @@
-export default {
+import { ManifestOptions } from 'vite-plugin-pwa';
+
+const manifest: Partial<ManifestOptions> = {
   name: 'Drizzle Weather App (V2)',
   short_name: 'Drizzle',
   id: '/',
@@ -8,6 +10,7 @@ export default {
   display: 'minimal-ui',
   orientation: 'portrait',
   lang: 'en',
+  scope: '/',
   icons: [
     {
       src: '/images/icons/android-chrome-192x192.png',
@@ -45,3 +48,5 @@ export default {
     },
   ],
 };
+
+export default manifest;
