@@ -42,7 +42,6 @@ const useUserStore = defineStore('useUserStore', {
 
     updateOnlineStatus(e: Event): void {
       this.online = e.type === 'online';
-      console.log(this.online);
     },
   },
 });
