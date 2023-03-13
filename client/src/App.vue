@@ -43,6 +43,7 @@ async function reloadSW() {
 onMounted(async () => {
   registerSW();
 
+  userStore.online = window.navigator.onLine;
   window.addEventListener('online', userStore.updateOnlineStatus);
   window.addEventListener('offline', userStore.updateOnlineStatus);
 
