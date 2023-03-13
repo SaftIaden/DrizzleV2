@@ -43,9 +43,12 @@ async function reloadSW() {
 onMounted(async () => {
   registerSW();
 
+  userStore.online = window.navigator.onLine;
+  window.addEventListener('online', userStore.updateOnlineStatus);
+  window.addEventListener('offline', userStore.updateOnlineStatus);
+
   const savedPrefs = await userStore.getPreferences();
   if (savedPrefs) userStore.preferences = savedPrefs;
-
   userStore.savePrefsOnUpdate();
 
   try {

@@ -52,6 +52,10 @@
         </div>
       </div>
 
+      <div v-else-if="!userStore.online">
+        <OfflineMessage></OfflineMessage>
+      </div>
+
       <div v-else class="row">
         <div class="col">
           <div class="row">
@@ -104,10 +108,12 @@
 
 <script setup lang="ts">
 import { format } from 'date-fns';
-import { useWeatherStore } from '../stores';
+import { useWeatherStore, useUserStore } from '@/stores';
 import StarLocation from './StarLocation.vue';
+import OfflineMessage from './OfflineMessage.vue';
 
 const weatherStore = useWeatherStore();
+const userStore = useUserStore();
 </script>
 
 <style scoped lang="scss">
