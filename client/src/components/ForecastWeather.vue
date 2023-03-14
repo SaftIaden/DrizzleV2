@@ -40,7 +40,7 @@ function getDailyData(firstHourItem: forecastListItem): dailyForecastCalculation
   const index = weatherStore.forecastData?.list.findIndex((i) => i.dt === firstHourItem.dt);
   const hourlyForecastsForDay: forecastListItem[] | undefined = weatherStore.forecastData?.list.slice(index, (index as number) + 8);
 
-  if (hourlyForecastsForDay) {
+  if (hourlyForecastsForDay && hourlyForecastsForDay.length === 8) {
     let minTemp = 100;
     let maxTemp = -273;
     let rainSum = 0.0;

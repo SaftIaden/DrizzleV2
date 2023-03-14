@@ -27,6 +27,7 @@ export default defineConfig({
       manifest,
       strategies: 'generateSW',
       workbox: {
+        globPatterns: ['**/*.{js,css,xml,html,jpg,ico,png,ttf,woff2,webmanifest}'],
         runtimeCaching: [
           {
             urlPattern: /https:\/\/api.openweathermap.org\/data\/2.5\/weather\?lat=\d{2}\.\d*&lon=\d{2}\.\d*&appid=[a-zA-Z0-9]*&units=metric/,
