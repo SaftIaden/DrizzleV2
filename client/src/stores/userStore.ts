@@ -10,6 +10,7 @@ const useUserStore = defineStore('useUserStore', {
   state: () => ({
     preferences: { id: 1, starredLocations: [] } as preference,
     online: true,
+    showAnyway: false,
   }),
 
   actions: {

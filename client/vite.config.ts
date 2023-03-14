@@ -71,6 +71,20 @@ export default defineConfig({
               },
             },
           },
+          {
+            urlPattern: /https:\/\/tile.openweathermap.org\/map\/(temp_new|precipitation_new|clouds_new)\/\d*\/\d*\/\d*.png\?appid=[a-zA-Z0-9]*/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'mapLayersCache',
+              expiration: {
+                maxEntries: 1024,
+                maxAgeSeconds: 60 * 60 * 24 * 1,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
         ],
       },
     }),

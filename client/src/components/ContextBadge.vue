@@ -1,6 +1,6 @@
 <template>
   <div class="container q-mt-lg q-mx-lg">
-    <div v-if="!userStore.online">
+    <div v-if="!userStore.online && !userStore.showAnyway">
       <OfflineMessage></OfflineMessage>
     </div>
 

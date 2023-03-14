@@ -2,6 +2,10 @@
   <q-layout>
     <q-page-container>
       <q-slide-transition>
+        <div v-if="!userStore.online" class="reloadPopup q-mx-lg q-pb-sm font-kanit text-center text-white">
+          <span class="text-body1 block">You are offline! Show stale data anyway?</span>
+          <q-btn @click="userStore.showAnyway = true" dense unelevated rounded color="primary" label="show" class="q-px-xl q-mt-sm"></q-btn>
+        </div>
         <div v-if="update" class="reloadPopup q-mx-lg q-pb-sm font-kanit text-center text-white">
           <span class="text-body1 block">There is an update!</span>
           <q-btn @click="reloadSW" dense unelevated rounded color="primary" label="reload" class="q-px-xl q-mt-sm"></q-btn>
@@ -54,9 +58,12 @@ onMounted(async () => {
   try {
     const pos = await getLocation({ enableHighAccuracy: true });
 
-    weatherStore.getCurrentWeatherData(pos.coords.latitude, pos.coords.longitude);
-    weatherStore.getForecast(pos.coords.latitude, pos.coords.longitude);
-    weatherStore.getCurrentAirPollution(pos.coords.latitude, pos.coords.longitude);
+    weatherStore.getCurrentWeatherData(48.2116952, 16.313006);
+    weatherStore.getForecast(48.2116952, 16.313006);
+    weatherStore.getCurrentAirPollution(48.2116952, 16.313006);
+    // weatherStore.getCurrentWeatherData(pos.coords.latitude, pos.coords.longitude);
+    // weatherStore.getForecast(pos.coords.latitude, pos.coords.longitude);
+    // weatherStore.getCurrentAirPollution(pos.coords.latitude, pos.coords.longitude);
   } catch (error) {
     weatherStore.getCurrentWeatherData();
     weatherStore.getForecast();

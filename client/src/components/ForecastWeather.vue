@@ -1,6 +1,16 @@
 <template>
   <div class="container q-mt-lg q-mx-lg">
-    <div v-if="!weatherStore.pendingForecast" class="column">
+    <div v-if="weatherStore.pendingForecast" class="column">
+      <div v-for="i in 5" :class="`col row no-wrap text-center forecast-day q-pa-sm ${i === 5 ? 'no-border' : ''}`" style="max-height: 2.5rem" :key="i">
+        <q-skeleton type="rect" width="100%" height="1.5rem" />
+      </div>
+    </div>
+
+    <div v-else-if="!userStore.online && !userStore.showAnyway">
+      <OfflineMessage></OfflineMessage>
+    </div>
+
+    <div v-else class="column">
       <div v-for="(day, i) in firstForecastOfEachDay" :class="`col row no-wrap text-center forecast-day q-pa-sm ${i === 4 ? 'no-border' : ''}`" style="max-height: 2.5rem" :key="day.dt">
         <span class="col-2 text-body1 font-kanit-medium text-left">{{ format(day.dt, 'eee') }}</span>
         <div class="col-3">
@@ -16,22 +26,18 @@
         <span v-else class="col-5 text-body1 font-kanit-light">{{ dailyForecastProps[i].weatherText }}</span>
       </div>
     </div>
-
-    <div v-else class="column">
-      <div v-for="i in 5" :class="`col row no-wrap text-center forecast-day q-pa-sm ${i === 5 ? 'no-border' : ''}`" style="max-height: 2.5rem" :key="i">
-        <q-skeleton type="rect" width="100%" height="1.5rem" />
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, Ref } from 'vue';
 import { format } from 'date-fns';
-import { useWeatherStore } from '../stores';
+import OfflineMessage from './OfflineMessage.vue';
+import { useWeatherStore, useUserStore } from '../stores';
 import { forecastListItem, dailyForecastCalculations } from '../types';
 
 const weatherStore = useWeatherStore();
+const userStore = useUserStore();
 
 const firstForecastOfEachDay: Ref<forecastListItem[] | undefined> = ref();
 const dailyForecastProps: Ref<dailyForecastCalculations[]> = ref([]);

@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div v-else-if="!userStore.online">
+      <div v-else-if="!userStore.online && !userStore.showAnyway">
         <OfflineMessage></OfflineMessage>
       </div>
 
